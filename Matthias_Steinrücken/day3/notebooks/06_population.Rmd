@@ -79,6 +79,12 @@ Plot the posterior probability, assuming a uniform prior (alpha = beta = 1). The
 What happens to the distribution if we have only 10 samples (with the sample allele frequency of 0.20)?
 
 ```{r}
+n=20
+k=20*0.2
+p=seq(0,1,0.01)
+a=1
+b=1
+plot(p, dbeta(p, (k+a), (n-k+b)), type="l")
 #...
 ```
 
@@ -105,7 +111,8 @@ choices regarding the parameter for the Beta distribution) both in the case of 1
 Discuss how these results compare to the previous ones obtained in point A.
 
 ```{r}
-#...
+
+
 ```
 
 __C)__ (bonus)
