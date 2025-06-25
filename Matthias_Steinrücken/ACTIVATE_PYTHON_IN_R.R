@@ -6,9 +6,9 @@ reticulate::repl_python()
 
 
 # test libraries
-import matplotlib
-import tqdm
-import msprime
-import tskit
-import demesdraw
-import csv
+#import matplotlib
+#import tqdm
+#import msprime
+#import tskit
+#import demesdraw
+#import csv
