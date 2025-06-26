@@ -1,7 +1,7 @@
 library(smacof);
-library("genio");
-library("BEDMatrix");
-library("vegan");
+library(genio);
+library(BEDMatrix);
+library(vegan);
 library(LEA);
 library(ggplot2)
 
@@ -15,7 +15,7 @@ rm(list=ls());
 # given two populations A and B, create a new Admix pop by admixture with 
 # proportions pa and 1-pa.
 
-folder.fastSimcoal2 <- "C:\\Users\\u9424\\OneDrive - Universitat Pompeu Fabra\\Grants\\2025\\EMBO Naples June\\Second day\\";
+folder.fastSimcoal2 <- "/home/risi/";
 
 setwd(folder.fastSimcoal2);
 
@@ -61,14 +61,14 @@ model.admixed.pop <- function(sample_1, sample_2, sample_admix, effective_popula
   }
   
   # Write to file
-  writeLines(lines, "DemographicModelSplitR.par")
+  writeLines(lines, paste(folder.fastSimcoal2,"DemographicModelSplitR.par", sep=""))
   
-  exe <- ".\\fsc28.exe"
-  args <- c("-i", ".\\DemographicModelSplitR.par", "-x", "-s0", "-d", "-n", "1", "-q", "-G")
+  exe <- "fsc28"
+  args <- c("-i", "DemographicModelSplitR.par", "-x", "-s0", "-d", "-n", "1", "-q", "-G")
   # Execute
   system2(exe, args = args)
   
-  data.t <- read.table(file=paste(folder.fastSimcoal2,"\\DemographicModelSplitR\\DemographicModelSplitR_1_1.gen", sep=""), header = T);
+  data.t <- read.table(file=paste(folder.fastSimcoal2,"//DemographicModelSplitR//DemographicModelSplitR_1_1.gen", sep=""), header = T);
   
   # First four columns are snp info
   # haplotype matrix. Rows are haplotypes, columns are positions
@@ -329,14 +329,14 @@ model.2D.grid.pop <- function(sample_sizes, nes, migration_rate, number_of_block
   }
   
   # Write to file
-  writeLines(lines, "DemographicModelSplitR.par")
+  writeLines(lines, paste(folder.fastSimcoal2,"DemographicModelSplitR.par", sep=""))
   
-  exe <- ".\\fsc28.exe"
-  args <- c("-i", ".\\DemographicModelSplitR.par", "-x", "-s0", "-d", "-n", "1", "-q", "-G")
+  exe <- "fsc28"
+  args <- c("-i", "DemographicModelSplitR.par", "-x", "-s0", "-d", "-n", "1", "-q", "-G")
   # Execute
   system2(exe, args = args)
   
-  data.t <- read.table(file=paste(folder.fastSimcoal2,"\\DemographicModelSplitR\\DemographicModelSplitR_1_1.gen", sep=""), header = T);
+  data.t <- read.table(file=paste(folder.fastSimcoal2,"//DemographicModelSplitR//DemographicModelSplitR_1_1.gen", sep=""), header = T);
   
   # First four columns are snp info
   # haplotype matrix. Rows are haplotypes, columns are positions

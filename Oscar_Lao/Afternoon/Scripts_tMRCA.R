@@ -1,13 +1,13 @@
 rm(list=ls());
 
-folder.fastSimcoal2 <- "C:\\Users\\u9424\\OneDrive - Universitat Pompeu Fabra\\Grants\\2025\\EMBO Naples June\\Second day\\Afternoon\\Practical\\";
+folder.fastSimcoal2 <- "/home/risi/";
 
 setwd(folder.fastSimcoal2);
 
 # b) assuming a constant population size A with a recent population change
 model.single.pop.with.recent.population.change.tMRCA <- function(population_size_in_present, effective_population_size_1, time_change_population_size, number_of_blocks)
 {
-  ex <- paste(folder.fastSimcoal2,"DemographicModelSplitR\\" ,"DemographicModelSplitR_mrca.txt",sep="");
+  ex <- paste(folder.fastSimcoal2,"DemographicModelSplitR/" ,"DemographicModelSplitR_mrca.txt",sep="");
   if (file.exists(ex)) {
     file.remove(ex)
   }  
@@ -46,16 +46,16 @@ model.single.pop.with.recent.population.change.tMRCA <- function(population_size
   # Write to file
   writeLines(lines, "DemographicModelSplitR.par")
   
-  exe <- ".\\fsc28.exe"
-  args <- c("-i", ".\\DemographicModelSplitR.par", "-x", "-s0", "-n", "1", "-q", "--recordMRCA")
+  exe <- "fsc28"
+  args <- c("-i", "DemographicModelSplitR.par", "-x", "-s0", "-n", "1", "-q", "--recordMRCA")
   # Execute
   system2(exe, args = args);
-  data.t <- read.table(file=paste(folder.fastSimcoal2,"\\DemographicModelSplitR\\DemographicModelSplitR_mrca.txt", sep=""), header = T, skip = 4);
+  data.t <- read.table(file=paste(folder.fastSimcoal2,"/DemographicModelSplitR/DemographicModelSplitR_mrca.txt", sep=""), header = T, skip = 4);
   return(data.t);
 }
 
 # Example of execution
-data <- model.single.pop.with.recent.population.change.tMRCA(10000, 1000, 500, 1000)
+data <- model.single.pop.with.recent.population.change.tMRCA(10000, 1000, 500, 10000)
 hist(data$Time_.gen., breaks = 50, col = "skyblue", main = "TMRCA Distribution", xlab = "Generations")
 abline(v = mean(data$Time_.gen.), col = "red", lwd = 2)
 
@@ -122,7 +122,7 @@ iicr <- function(data)
     theme_minimal()  
 }
 
-data <- model.single.pop.with.recent.population.change.tMRCA(2000, 500, 2000, 100000)
+data <- model.single.pop.with.recent.population.change.tMRCA(2000, 500, 2000, 10000)
 iicr(data)
 
 # Exercise 3. Goal: Analyze how the strength and timing of bottlenecks impact coalescence times.
@@ -148,7 +148,7 @@ iicr(data)
  
 model.single.pop.with.bottleneck.tMRCA <- function(population_size_in_present, ne_bottleneck, time_change_population_size, time_duration_bottleneck, number_of_blocks)
 {
-  ex <- paste(folder.fastSimcoal2,"DemographicModelSplitR\\" ,"DemographicModelSplitR_mrca.txt",sep="");
+  ex <- paste(folder.fastSimcoal2,"DemographicModelSplitR/" ,"DemographicModelSplitR_mrca.txt",sep="");
   if (file.exists(ex)) {
     file.remove(ex)
   }  
@@ -189,10 +189,10 @@ model.single.pop.with.bottleneck.tMRCA <- function(population_size_in_present, n
   writeLines(lines, "DemographicModelSplitR.par")
   
   exe <- ".\\fsc28.exe"
-  args <- c("-i", ".\\DemographicModelSplitR.par", "-x", "-s0", "-n", "1", "-q", "--recordMRCA")
+  args <- c("-i", "DemographicModelSplitR.par", "-x", "-s0", "-n", "1", "-q", "--recordMRCA")
   # Execute
   system2(exe, args = args);
-  data.t <- read.table(file=paste(folder.fastSimcoal2,"\\DemographicModelSplitR\\DemographicModelSplitR_mrca.txt", sep=""), header = T, skip = 4);
+  data.t <- read.table(file=paste(folder.fastSimcoal2,"/DemographicModelSplitR/DemographicModelSplitR_mrca.txt", sep=""), header = T, skip = 4);
   return(data.t);
 }
 
