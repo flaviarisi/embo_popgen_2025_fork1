@@ -77,8 +77,28 @@ ggplot(lbk_f3out, aes(pop3, est)) +
   geom_errorbar(aes(ymin = est - 2 * se, ymax = est + 2 * se)) +
   labs(y = "Shared drift with LBK", x = "populations") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
+#######################################################
 
+ma1_modern_panel <- c("Basque", "Bedouin2", "Druze", "Cypriot", "Tuscan",
+                      "Sardinian", "French", "Spanish", "Onge", "Han", "Mayan", "Mixe", "Surui")
 
+ma1_f3out <- f3(data = f2_blocks, 
+                pop1 = "Mbuti", 
+                pop2 = "MA1",
+                pop3 = ma1_modern_panel)
+ma1_f3out
+
+ma1_f3out %>% arrange(desc(est))
+
+ma1_f3out$pop3<-factor(ma1_f3out$pop3, levels = ma1_f3out$pop3[order(ma1_f3out$est)])
+
+ggplot(ma1_f3out, aes(pop3, est)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = est - 2 * se, ymax = est + 2 * se)) +
+  labs(y = "Shared drift with MA1", x = "populations") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+####################################################################
 aa_f3admix <- f3(data = f2_blocks,
                  pop1 = "AA",
                  pop2 = "Yoruba",
@@ -87,19 +107,30 @@ aa_f3admix
 
 eurasian_sources <- c("French","Spanish","Sardinian","LBK")
 
-somali_f3admix <- f3(data = f2_blocks,
-                     pop1 = "Somali",
+dinka_f3admix <- f3(data = f2_blocks,
+                     pop1 = "Dinka",
                      pop2 = eurasian_sources, 
                      pop3 = "Mota")
-somali_f3admix
+dinka_f3admix
 
+#########################################################################
 neand_french_f4 <- f4(data = f2_blocks,
                      pop1 = "pan_troglodytes",
                      pop2 = "AltaiNea",
-                     pop3 = "Mbuti",
+                     pop3 = "Han",
                      pop4 = "French")
 neand_french_f4
+##################################################
+y_sources <- c("French", "Basque", "Spanish")
 
+y_europe_f4 <- f4(data = f2_blocks,
+                      pop1 = "LBK",
+                      pop2 = "Yamnaya",
+                      pop3 = y_sources,
+                      pop4 = y_sources)
+
+y_europe_f4
+####################################################
 pops <- c("Han", "pan_troglodytes", "AA","Yoruba","French")
 qpf4ratio(data = f2_blocks, 
           pops = pops)
